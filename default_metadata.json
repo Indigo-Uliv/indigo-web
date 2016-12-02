@@ -1,0 +1,16 @@
+{
+    "collections": [
+        {
+            "name": "Group",
+            "required": true
+        }
+    ],
+    "resources": [
+        {
+            "name": "Type",
+            "required": true,
+            "choices": ["a", "b", "c"]
+
+        }
+    ]
+}
