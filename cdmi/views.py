@@ -19,8 +19,6 @@ from collections import OrderedDict
 import base64
 import mimetypes
 import hashlib
-from cStringIO import StringIO
-import zipfile
 import os
 import json
 import logging
@@ -752,17 +750,7 @@ class CDMIView(APIView):
 
 
     def create_data_object(self, raw_data, metadata=None, create_ts=None, acl=None):
-        if settings.COMPRESS_UPLOADS:
-            # Compress the raw_data and store that instead
-            f = StringIO()
-            z = zipfile.ZipFile(f, "w", zipfile.ZIP_DEFLATED)
-            z.writestr("data", raw_data)
-            z.close()
-            data = f.getvalue()
-            f.close()
-        else:
-            data = raw_data
-        data_object = DataObject.create(data, settings.COMPRESS_UPLOADS,
+        data_object = DataObject.create(raw_data, settings.COMPRESS_UPLOADS,
                                         metadata=metadata,create_ts=create_ts,
                                         acl=acl)
         return data_object.uuid
@@ -774,17 +762,7 @@ class CDMIView(APIView):
 
 
     def append_data_object(self, uuid, seq_num, raw_data):
-        if settings.COMPRESS_UPLOADS:
-            # Compress the raw_data and store that instead
-            f = StringIO()
-            z = zipfile.ZipFile(f, "w", zipfile.ZIP_DEFLATED)
-            z.writestr("data", raw_data)
-            z.close()
-            data = f.getvalue()
-            f.close()
-        else:
-            data = raw_data
-        DataObject.append_chunk(uuid, data, seq_num, settings.COMPRESS_UPLOADS)
+        DataObject.append_chunk(uuid, raw_data, seq_num, settings.COMPRESS_UPLOADS)
 
 
     def create_resource(self, parent, name, content, mimetype):

@@ -18,8 +18,6 @@ limitations under the License.
 
 from io import BytesIO
 import hashlib
-import zipfile
-from cStringIO import StringIO
 from django.conf import settings
 from django.core.files.uploadhandler import (
     FileUploadHandler,
@@ -54,24 +52,11 @@ class AgentUploader(FileUploadHandler):
         last chunk).
         """
         print u"Received {} bytes - {}".format(len(raw_data), self.seq_number)
-
-        if settings.COMPRESS_UPLOADS:
-            # Compress the raw_data and store that instead
-            f = StringIO()
-            z = zipfile.ZipFile(f, "w", zipfile.ZIP_DEFLATED)
-            z.writestr("data", raw_data)
-            z.close()
- 
-            data = f.getvalue()
-            f.close()
-        else:
-            data = raw_data
-        
         if not self.uuid:
-            data_object = DataObject.create(data, settings.COMPRESS_UPLOADS)
+            data_object = DataObject.create(raw_data, settings.COMPRESS_UPLOADS)
             self.uuid = data_object.uuid
         else:
-            DataObject.append_chunk(self.uuid, data, self.seq_number, settings.COMPRESS_UPLOADS)
+            DataObject.append_chunk(self.uuid, raw_data, self.seq_number, settings.COMPRESS_UPLOADS)
         self.seq_number += 1
 
         self.hasher.update(data)

@@ -198,7 +198,7 @@ def delete_group(request, groupname):
     """Delete a group"""
     group = Group.find(groupname)
     if not group:
-        return Response(u"Group {} doesn't exists".format(groupname),
+        return Response(u"Group {} doesn't exist".format(groupname),
                         status=HTTP_404_NOT_FOUND)
     group.delete()
     return Response(u"Group {} has been deleted".format(groupname),
@@ -209,7 +209,7 @@ def delete_user(request, username):
     """Delete a user"""
     user = User.find(username)
     if not user:
-        return Response(u"User {} doesn't exists".format(username),
+        return Response(u"User {} doesn't exist".format(username),
                         status=HTTP_404_NOT_FOUND)
     user.delete()
     return Response(u"User {} has been deleted".format(username),
@@ -281,7 +281,7 @@ def modify_group(request, groupname):
         return Response("Invalid JSON body", status=HTTP_400_BAD_REQUEST)
     group = Group.find(groupname)
     if not group:
-        return Response(u"Group {} doesn't exists".format(groupname),
+        return Response(u"Group {} doesn't exist".format(groupname),
                         status=HTTP_404_NOT_FOUND)
 
     # Add users to group
@@ -322,7 +322,7 @@ def modify_user(request, username=""):
             return Response("Missing username", status=HTTP_400_BAD_REQUEST)
     user = User.find(username)
     if not user:
-        return Response(u"User {} doesn't exists".format(username),
+        return Response(u"User {} doesn't exist".format(username),
                         status=HTTP_404_NOT_FOUND)
     if 'email' in request_body:
         user.update(email=request_body['email'])

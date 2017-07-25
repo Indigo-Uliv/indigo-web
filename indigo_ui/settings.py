@@ -77,7 +77,8 @@ MIDDLEWARE_CLASSES = (
     #'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'users.middleware.CassandraAuth',
-    'cdmi.middleware.CDMIMiddleware'
+    'cdmi.middleware.CDMIMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 )
 
 ROOT_URLCONF = 'indigo_ui.urls'

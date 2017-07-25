@@ -22,7 +22,7 @@ from setuptools import setup
 
 setup(
     name='indigo-web',
-    version="1.1",
+    version="1.2",
     description='Indigo web ui',
     extras_require={},
     long_description="Django web ui for Indigo",
