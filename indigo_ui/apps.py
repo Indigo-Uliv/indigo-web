@@ -17,6 +17,7 @@ limitations under the License.
 
 from django.apps import AppConfig
 from indigo import get_config
+import logging
 
 
 class IndigoAppConfig(AppConfig):
@@ -24,7 +25,14 @@ class IndigoAppConfig(AppConfig):
     verbose_name = "Indigo"
 
     def ready(self):
-        from indigo.models import initialise, Collection
+        from indigo.models import initialise, Collection, User, Group
+        
+        
+        logging.basicConfig(level=logging.WARNING)
+        logging.getLogger("models").setLevel(logging.WARNING)
+        logging.getLogger("dse.policies").setLevel(logging.WARNING)
+        logging.getLogger("dse.cluster").setLevel(logging.WARNING)
+        logging.getLogger("dse.cqlengine.management").setLevel(logging.WARNING)
 
         cfg = get_config(None)
         initialise(keyspace=cfg.get('KEYSPACE', 'indigo'),
@@ -32,5 +40,9 @@ class IndigoAppConfig(AppConfig):
 
         # Try to get the root. It will create it if it doesn't exist
         root = Collection.get_root()
+        
+        # TODO: Review that at some point
+        # Check that the graph vertices for users are still there
+        User.check_graph_users()
 
 

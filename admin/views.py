@@ -53,7 +53,7 @@ class CassandraAuthentication(BasicAuthentication):
         user = User.find(username)
         if user is None or not user.is_active():
             raise exceptions.AuthenticationFailed(_('User inactive or deleted.'))
-        if not user.authenticate(password) and not ldapAuthenticate(userid, password):
+        if not user.authenticate(password) and not ldapAuthenticate(user.uuid, password):
             raise exceptions.AuthenticationFailed(_('Invalid username/password.'))
         return (user, None)
 

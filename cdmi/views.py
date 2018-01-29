@@ -892,9 +892,17 @@ class CDMIView(APIView):
                 if resource:
                     # Update value
                     # TODO: Delete old blob
-                    blob = self.create_blob(name, content)
-                    blob_id = blob.uuid
-                    url = "cassandra://{}".format(blob_id)
+                    uuid = None
+                    seq_num = 0
+                    for chk in chunkstring(content, CHUNK_SIZE):
+                        if uuid is None:
+                            uuid = self.create_data_object(chk)
+                        else:
+                            self.append_data_object(uuid, seq_num, chk)
+                        seq_num += 1
+                    if uuid is None: # Content is null
+                        uuid = self.create_empty_data_object()
+                    url = "cassandra://{}".format(uuid)
                     resource.update(url=url,
                                     size=len(content),
                                     mimetype=mimetype)
