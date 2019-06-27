@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Setup for Indigo-Web
+"""Setup for Indigo-Web - Project RADON version
 
-Copyright 2015 Archive Analytics Solutions
+Copyright 2019 University of Liverpool
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 """
+
 from distutils.core import setup
 from setuptools import setup
 
@@ -26,10 +27,10 @@ setup(
     description='Indigo web ui',
     extras_require={},
     long_description="Django web ui for Indigo",
-    author='Archive Analytics',
-    maintainer_email='@archiveanalytics.com',
+    author='Jerome Fuselier',
+    maintainer_email='jfuselie@liverpool.ac.uk',
     license="Apache License, Version 2.0",
-    url='https://bitbucket.org/archivea/indigo-web',
+    url="https://github.com/Indigo-Uliv/indigo-web",
     classifiers=[
         "Development Status :: 4 - Beta",
         "License :: OSI Approved :: Apache Software License",
