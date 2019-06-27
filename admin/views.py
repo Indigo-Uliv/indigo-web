@@ -140,8 +140,7 @@ def user(request, username):
 
 def create_group(request):
     """Expecting json in the body:
-    { "username": username,
-      "groupname": groupname }
+    { "groupname": groupname }
     """
     try:
         body = request.body
@@ -269,7 +268,7 @@ def rm_user_group(group, ls_users):
 
 def modify_group(request, groupname):
     """Expecting json in the body:
-    { "groupname": groupname, # Optional
+    { 
       "add_users": [user1, user2, ...],
       "rm_users": [user1, user2, ...]
     }

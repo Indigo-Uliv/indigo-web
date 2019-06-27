@@ -59,7 +59,7 @@ class AgentUploader(FileUploadHandler):
             DataObject.append_chunk(self.uuid, raw_data, self.seq_number, settings.COMPRESS_UPLOADS)
         self.seq_number += 1
 
-        self.hasher.update(data)
+        self.hasher.update(raw_data)
 
         return None
 
@@ -88,4 +88,3 @@ class CassandraUploadedFile(InMemoryUploadedFile):
     def __init__(self, name, content, content_type, length):
         super(CassandraUploadedFile, self).__init__(BytesIO(content), None, name,
                                                  content_type, length, None, None)
-
