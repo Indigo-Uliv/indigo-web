@@ -1,5 +1,5 @@
 Django==1.8
-Werkzeug==0.10.4
+Werkzeug==0.15.3
 django-extensions==1.5.3
 django-registration-redux==1.1
 django-flat-theme==0.9.3
